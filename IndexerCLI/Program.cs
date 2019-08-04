@@ -1,30 +1,65 @@
 using IndexerLib;
 using IndexerLib.FilesLookup;
+using IndexerLib.LASParser;
 using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IndexerCLI
 {
-    class Program
+    partial class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var fs = new FilesSearcher();
-            var files = fs.GetFilePaths(new[] { @"P:\shitty files", @"P:\shitty files\2" }, FileType.LAS).ConfigureAwait(false).GetAwaiter().GetResult();
-            var r = files.Select(f =>
+            Console.Write("Directory:");
+            var directory = Console.ReadLine();
+            var validator = new DirectoryPathValidator();
+            var error = validator.Validate(directory);
+
+            if (!string.IsNullOrEmpty(error))
             {
-                var parser = new LASFileData(f);
-                var res = parser.Parse(out var er);
-                if (res)
-                    return parser.Sections;
-                return null;
+                LogErrorAndDie(error);
             }
-                ).Where(x => x != null)
-                .ToArray();
+
+            Console.WriteLine("Lookin up for files. Wait a sec...");
+            var searcher = new FilesSearcher();
+            string[] filePaths = Array.Empty<string>();
+
+            try
+            {
+                filePaths = await searcher.GetFilePaths(new[] { directory }, FileType.LAS).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Found errors");
+                LogErrorAndDie(ex.Message);
+            }
+
+            Console.WriteLine($"Found {filePaths.Length} files");
+            Console.WriteLine("Parsing files. Wait a sec...");
+
+            LASFilesParser parser = new LASFilesParser(Environment.ProcessorCount);
+            IEnumerable<LASFileData> structuredData = Enumerable.Empty<LASFileData>();
+            try
+            {
+                structuredData =  await parser.Parse(filePaths);
+            }
+            catch (Exception ex)
+            {
+                LogErrorAndDie(ex.Message);
+            }
+
+            Console.WriteLine("Building index. Wait a sec...");
 
 
-            Console.WriteLine("Hello World!");
+
             Console.ReadKey();
+        }
+        static void LogErrorAndDie(string errorMsg)
+        {
+            Console.WriteLine(errorMsg);
+            Environment.Exit(1);
         }
     }
 }

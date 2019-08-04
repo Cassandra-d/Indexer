@@ -10,7 +10,7 @@ namespace IndexerLib.FilesLookup
 
     public class FilesSearcher
     {
-        public async Task<IEnumerable<string>> GetFilePaths(string[] folderPaths, FileType ft, CancellationToken ct = default(CancellationToken))
+        public async Task<string[]> GetFilePaths(string[] folderPaths, FileType ft, CancellationToken ct = default(CancellationToken))
         {
             if (folderPaths.Length == 0)
                 throw new ArgumentException("At least one folder path should be provided");
@@ -35,7 +35,7 @@ namespace IndexerLib.FilesLookup
                 }
             }
 
-            return res.Distinct(); // somebody provided folder and its subfolder
+            return res.Distinct().ToArray(); // somebody provided folder and its subfolder
         }
 
         private async Task<string[]> GetPathForFolder(string folderPath, string fileMask, CancellationToken ct)

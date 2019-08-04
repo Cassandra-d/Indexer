@@ -45,9 +45,15 @@
     <Compile Include="FilesLookup\FileType.cs" />
     <Compile Include="FilesLookup\FileMaskFactory.cs" />
     <Compile Include="LASParser\LASFileData.cs" />
+    <Compile Include="LASParser\LASFilesParser.cs" />
     <Compile Include="LASParser\LASSection.cs" />
     <Compile Include="LASParser\LASSectionLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="morelinq">
+      <Version>3.2.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
