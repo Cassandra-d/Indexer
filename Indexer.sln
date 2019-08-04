@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndexerCLI", "IndexerCLI\In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndexerLib", "IndexerLib\IndexerLib.csproj", "{8BC67371-E864-4D5C-80CB-A6082E1C09A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndexerLucen", "IndexerLucen\IndexerLucen.csproj", "{C37A3F82-6982-4B97-8148-B6574DFC053E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8BC67371-E864-4D5C-80CB-A6082E1C09A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BC67371-E864-4D5C-80CB-A6082E1C09A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BC67371-E864-4D5C-80CB-A6082E1C09A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C37A3F82-6982-4B97-8148-B6574DFC053E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C37A3F82-6982-4B97-8148-B6574DFC053E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C37A3F82-6982-4B97-8148-B6574DFC053E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C37A3F82-6982-4B97-8148-B6574DFC053E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
