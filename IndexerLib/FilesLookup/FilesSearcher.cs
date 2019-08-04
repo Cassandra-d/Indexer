@@ -38,11 +38,11 @@ namespace IndexerLib.FilesLookup
             return res.Distinct(); // somebody provided folder and its subfolder
         }
 
-        private async Task<List<string>> GetPathForFolder(string folderPath, string fileMask, CancellationToken ct)
+        private async Task<string[]> GetPathForFolder(string folderPath, string fileMask, CancellationToken ct)
         {
             var t = Task.Run(() => { return Directory.EnumerateFiles(folderPath, fileMask, SearchOption.AllDirectories); }, ct);
             await t;
-            return new List<string>(t.Result);
+            return t.Result.ToArray();
         }
     }
 }

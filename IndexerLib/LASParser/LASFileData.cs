@@ -9,7 +9,7 @@ namespace IndexerLib
     {
         public bool ContainsData { get; private set; }
         public string FilePath { get; private set; }
-        public List<LASSection> Sections { get; private set; }
+        public LASSection[] Sections { get; private set; }
 
         public LASFileData(string filePath)
         {
@@ -18,18 +18,18 @@ namespace IndexerLib
 
             ContainsData = false;
             FilePath = filePath;
-            Sections = new List<LASSection>();
+            Sections = Array.Empty<LASSection>();
         }
 
-        public bool Parse(out List<string> errors)
+        public bool Parse(out string error)
         {
-            errors = new List<string>();
-
             if (!File.Exists(FilePath))
             {
-                errors.Add($"File {FilePath} does not exist");
+                error = $"File {FilePath} does not exist";
                 return false;
             }
+
+            List<LASSection> res = new List<LASSection>();
 
             try
             {
@@ -40,16 +40,19 @@ namespace IndexerLib
                         var firstLine = section.First();
                         var otherLines = section.Skip(1);
                         var sectionName = GetSectionName(firstLine);
-                        Sections.Add(new LASSection(sectionName, otherLines));
+                        res.Add(new LASSection(sectionName, otherLines));
                     }
                 }
             }
             catch (Exception ex)
             {
-                errors.Add(ex.Message);
+                error = ex.Message;
                 return false;
             }
 
+            error = string.Empty;
+            Sections = res.ToArray();
+            ContainsData = true;
             return true;
         }
 

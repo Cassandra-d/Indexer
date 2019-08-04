@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConcurrentList.cs" />
     <Compile Include="FilesLookup\FilesSearcher.cs" />
     <Compile Include="FilesLookup\FileType.cs" />
     <Compile Include="FilesLookup\FileMaskFactory.cs" />
