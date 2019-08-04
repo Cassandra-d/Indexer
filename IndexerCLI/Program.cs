@@ -10,12 +10,12 @@ namespace IndexerCLI
     {
         static void Main(string[] args)
         {
-            // The code provided will print ‘Hello World’ to the console.
-            // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
+            var p = new IndexerLib.LASFileData(@"P:\\7125-4-1__WLC_COMPOSITE__1.LAS");
+
+            p.Parse(out var es);
+            
             Console.WriteLine("Hello World!");
             Console.ReadKey();
-
-            // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
         }
     }
 }
