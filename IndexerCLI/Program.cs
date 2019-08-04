@@ -1,3 +1,5 @@
+using IndexerLib;
+using IndexerLib.FilesLookup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,20 @@ namespace IndexerCLI
     {
         static void Main(string[] args)
         {
-            var p = new IndexerLib.LASFileData(@"P:\\7125-4-1__WLC_COMPOSITE__1.LAS");
+            var fs = new FilesSearcher();
+            var files = fs.GetFilePaths(new[] { @"P:\shitty files", @"P:\shitty files\2" }, FileType.LAS).ConfigureAwait(false).GetAwaiter().GetResult();
+            var r = files.Select(f =>
+            {
+                var parser = new LASFileData(f);
+                var res = parser.Parse(out var er);
+                if (res)
+                    return parser.Sections;
+                return null;
+            }
+                ).Where(x => x != null)
+                .ToArray();
 
-            p.Parse(out var es);
-            
+
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         }

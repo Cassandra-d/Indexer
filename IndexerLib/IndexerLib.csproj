@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConcurrentList.cs" />
+    <Compile Include="FilesLookup\FilesSearcher.cs" />
+    <Compile Include="FilesLookup\FileType.cs" />
+    <Compile Include="FilesLookup\FileMaskFactory.cs" />
     <Compile Include="LASParser\LASFileData.cs" />
     <Compile Include="LASParser\LASSection.cs" />
     <Compile Include="LASParser\LASSectionLine.cs" />
